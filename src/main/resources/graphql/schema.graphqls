@@ -1,0 +1,35 @@
+scalar Void
+
+input CadastrarTipoMultaRequest {
+    codigo: String!
+    descricao: String!
+    ativo: Boolean!
+}
+
+type TipoMulta {
+    id: ID!
+    codigo: String!
+    descricao: String!
+}
+
+type TipoConta {
+    id: ID!
+    codigo: String!
+    descricao: String!
+}
+
+type TodosParametros {
+    tiposMulta: [TipoMulta!]!
+    tiposConta: [TipoConta!]!
+}
+
+type Query {
+    buscarTiposMulta(ativo: Boolean!): [TipoMulta!]!
+    buscarTiposConta: [TipoConta!]!
+    buscarTodosParametros(ativo: Boolean!): TodosParametros!
+}
+
+type Mutation {
+    cadastrarTipoMulta(request: CadastrarTipoMultaRequest!): TipoMulta!
+    deletarTipoMulta(id: ID!): Void
+}

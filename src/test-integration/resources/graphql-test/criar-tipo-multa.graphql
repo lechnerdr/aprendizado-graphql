@@ -1,0 +1,11 @@
+mutation  {
+    cadastrarTipoMulta(request: {
+        codigo: "123",
+        descricao: "Multa por excesso de velocidade",
+        ativo: true
+    }) {
+        id
+        codigo
+        descricao
+    }
+}

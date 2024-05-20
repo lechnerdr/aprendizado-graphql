@@ -1,0 +1,63 @@
+plugins {
+	id 'java'
+	id 'idea'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.unbroken-dome.test-sets' version "4.1.0"
+}
+
+group = 'br.com.richard'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+testSets {
+	integrationTest { dirName = 'test-integration' }
+}
+
+tasks.register('todosTestes') {
+	dependsOn('test')
+	todosTestes.finalizedBy('integrationTest')
+}
+
+tasks.withType(Test).configureEach {
+	useJUnitPlatform()
+	systemProperty "user.language", "en"
+	systemProperty "user.country", "US"
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-graphql'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.graphql-java:graphql-java-extended-scalars:22.0'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	runtimeOnly 'org.postgresql:postgresql'
+
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework:spring-webflux'
+	testImplementation 'org.springframework.graphql:spring-graphql-test'
+	testImplementation 'com.graphql-java-kickstart:graphql-spring-boot-starter-test:15.1.0'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

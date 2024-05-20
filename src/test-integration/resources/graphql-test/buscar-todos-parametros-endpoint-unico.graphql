@@ -1,0 +1,14 @@
+query BuscarTodosParametrosEndpointUnico($ativo: Boolean!) {
+    buscarTodosParametros(ativo: $ativo) {
+        tiposMulta {
+            id
+            codigo
+            descricao
+        }
+        tiposConta {
+            id
+            codigo
+            descricao
+        }
+    }
+}
